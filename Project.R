@@ -3,7 +3,7 @@
 #install.packages("ggplot2")
 #install.packages("dplyr")
 ####################################################################################################
-                                                                                   ## store api keys
+## store api keys
 appname <- "MoldSearch"
 key <- "PIkNDOuOP1XncLI9Mtp4MEZrO"                                                       ## api key 
 secret <- "Qk4efz3C703F087zOIQtoNwD0pheSVRNg0C6jKacWRRyI0yBb9"                        ## api secret
@@ -32,19 +32,19 @@ twitter_token <- create_token(app = appname,consumer_key = key,consumer_secret =
 #users %>%
 #  ggplot(aes(location))+geom_bar()+coord_flip()+labs(x = "Count", y = "Location", title = "Twitter users - unique locations")
 #Search Users talking about something
-users <- search_users("Asthma", n = 3000)
-length(unique(users$location))
-users %>%
-  ggplot(aes(location))+geom_bar()+coord_flip()+labs(x = "Count", y = "Location", title = "Twitter users - unique locations")
+#users <- search_users("Asthma", n = 3000)
+#length(unique(users$location))
+#users %>%
+#  ggplot(aes(location))+geom_bar()+coord_flip()+labs(x = "Count", y = "Location", title = "Twitter users - unique locations")
 ####################################################################################################
 #Search and display top locations where something is being said
-users %>%
-  count(location, sort = TRUE) %>%
-  mutate(location = reorder(location, n)) %>%
-  na.omit() %>%
-  top_n(20)%>%
-  ggplot(aes(x = location, y = n)) + 
-  geom_col() + 
-  coord_flip() + 
-      labs(x = "Location",
-      y = "Count", title = "Twitter users - unique locations")
+#users %>%
+#  count(location, sort = TRUE) %>%
+#  mutate(location = reorder(location, n)) %>%
+#  na.omit() %>%
+#  top_n(20)%>%
+#  ggplot(aes(x = location, y = n)) + 
+#  geom_col() + 
+#  coord_flip() + 
+#      labs(x = "Location",
+#      y = "Count", title = "Twitter users - unique locations")
