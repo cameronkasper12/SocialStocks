@@ -37,6 +37,7 @@ tweets_SpaceX<- searchTwitter("SpaceX",n=1000, lang="en")
 tweets_TSLA <- searchTwitter("TSLA",n=1000, lang="en")
 tweets_Model3 <- searchTwitter("Model 3",n=1000, lang="en")
 tweets_CyberTruck <- searchTwitter("Cyber Truck",n=1000, lang="en")
+tweets_Stock <- searchTwitter("Stock + Tesla",n = 1000, lang = "en")
 
 ################################################################################################
 #                                      Text Formatting                                         #
@@ -48,6 +49,7 @@ SpaceX_tweets <- twListToDF(tweets_SpaceX)
 TSLA_tweets <- twListToDF(tweets_TSLA)
 Model3_tweets <- twListToDF(tweets_Model3)
 CyberTruck_tweets <- twListToDF(tweets_CyberTruck)
+Stock_tweets <- twListToDF(tweets_Stock)
 
 
 #Create a varibale for just the text of the tweet
@@ -57,6 +59,7 @@ SpaceX_text <- SpaceX_tweets$text
 TSLA_text <- TSLA_tweets$text
 Model3_text <- Model3_tweets$text
 CyberTruck_text <- CyberTruck_tweets$text
+Stock_text <- Stock_tweets$text
 
 #convert all text to lower case
 Tesla_text <- tolower(Tesla_text)
@@ -65,6 +68,7 @@ SpaceX_text <- tolower(SpaceX_text)
 TSLA_text <- tolower(TSLA_text)
 Model3_text <- tolower(Model3_text)
 CyberTruck_text <- tolower(CyberTruck_text)
+Stock_text <- tolower(Stock_text)
 
 
 # Replace blank space ("rt")
@@ -74,6 +78,7 @@ SpaceX_text <- gsub("rt", "", SpaceX_text)
 TSLA_text <- gsub("rt", "", TSLA_text)
 Model3_text <- gsub("rt", "", Model3_text)
 CyberTruck_text <- gsub("rt", "", CyberTruck_text)
+Stock_text <- gsub("rt", "", Stock_text)
 
 
 # Replace @UserName
@@ -83,6 +88,7 @@ SpaceX_text <- gsub("@\\w+", "", SpaceX_text)
 TSLA_text <- gsub("@\\w+", "", TSLA_text)
 Model3_text <- gsub("@\\w+", "", Model3_text)
 CyberTruck_text <- gsub("@\\w+", "", CyberTruck_text)
+Stock_text <- gsub("@\\w+", "", Stock_text)
 
 
 # Remove punctuation
@@ -92,6 +98,7 @@ SpaceX_text <- gsub("[[:punct:]]", "", SpaceX_text)
 TSLA_text <- gsub("[[:punct:]]", "", TSLA_text)
 Model3_text <- gsub("[[:punct:]]", "", Model3_text)
 CyberTruck_text <- gsub("[[:punct:]]", "", CyberTruck_text)
+Stock_text <- gsub("[[:punct:]]", "", Stock_text)
 
 
 # Remove links
@@ -101,6 +108,7 @@ SpaceX_text <- gsub("http\\w+", "", SpaceX_text)
 TSLA_text <- gsub("http\\w+", "", TSLA_text)
 Model3_text <- gsub("http\\w+", "", Model3_text)
 CyberTruck_text <- gsub("http\\w+", "", CyberTruck_text)
+Stock_text <- gsub("http\\w+", "", Stock_text)
 
 # Remove tabs
 Tesla_text <- gsub("[ |\t]{2,}", "", Tesla_text)
@@ -109,6 +117,7 @@ SpaceX_text <- gsub("[ |\t]{2,}", "", SpaceX_text)
 TSLA_text <- gsub("[ |\t]{2,}", "", TSLA_text)
 Model3_text <- gsub("[ |\t]{2,}", "", Model3_text)
 CyberTruck_text <- gsub("[ |\t]{2,}", "", CyberTruck_text)
+Stock_text <- gsub("[ |\t]{2,}", "", Stock_text)
 
 
 # Remove blank spaces at the beginning
@@ -118,6 +127,7 @@ SpaceX_text <- gsub("^ ", "", SpaceX_text)
 TSLA_text <- gsub("^ ", "", TSLA_text)
 Model3_text <- gsub("^ ", "", Model3_text)
 CyberTruck_text <- gsub("^ ", "", CyberTruck_text)
+Stock_text <- gsub("^ ", "", Stock_text)
 
 
 # Remove blank spaces at the end
@@ -127,6 +137,7 @@ SpaceX_text <- gsub(" $", "", SpaceX_text)
 TSLA_text <- gsub(" $", "", TSLA_text)
 Model3_text <- gsub(" $", "", Model3_text)
 CyberTruck_text <- gsub(" $", "", CyberTruck_text)
+Stock_text <- gsub(" $", "", Stock_text)
 
 
 View(Tesla_text)
@@ -135,6 +146,8 @@ View(SpaceX_text)
 View(TSLA_text)
 View(Model3_text)
 View(CyberTruck_text)
+View(Stock_text)
+
 
 #Investigate more text formatting by removing stop words
 
@@ -149,6 +162,7 @@ wordcloud(SpaceX_text,min.freq = 10,colors=brewer.pal(8, "Dark2"),random.color =
 wordcloud(TSLA_text,min.freq = 10,colors=brewer.pal(8, "Dark2"),random.color = TRUE,max.words = 500)
 wordcloud(Model3_text,min.freq = 10,colors=brewer.pal(8, "Dark2"),random.color = TRUE,max.words = 500)
 wordcloud(CyberTruck_text,min.freq = 10,colors=brewer.pal(8, "Dark2"),random.color = TRUE,max.words = 500)
+wordcloud(Stock_text,min.freq = 10,colors=brewer.pal(8, "Dark2"),random.color = TRUE,max.words = 500)
 
 #getting emotions using in-built function
 mysentiment_Tesla <-get_nrc_sentiment((Tesla_text))
@@ -157,6 +171,8 @@ mysentiment_SpaceX <-get_nrc_sentiment((SpaceX_text))
 mysentiment_TSLA <-get_nrc_sentiment((TSLA_text))
 mysentiment_Model3 <-get_nrc_sentiment((Model3_text))
 mysentiment_CyberTruck <-get_nrc_sentiment((CyberTruck_text))
+mysentiment_Stock <-get_nrc_sentiment((Stock_text))
+
 
 #calculationg total score for each sentiment
 Sentimentscores_Tesla<-data.frame(colSums(mysentiment_Tesla[,]))
@@ -165,6 +181,7 @@ Sentimentscores_SpaceX<-data.frame(colSums(mysentiment_SpaceX[,]))
 Sentimentscores_TSLA<-data.frame(colSums(mysentiment_TSLA[,]))
 Sentimentscores_Model3<-data.frame(colSums(mysentiment_Model3[,]))
 Sentimentscores_CyberTruck<-data.frame(colSums(mysentiment_CyberTruck[,]))
+Sentimentscores_Stock<-data.frame(colSums(mysentiment_Stock[,]))
 
 #Scoring
 names(Sentimentscores_Tesla)<-"Score"
@@ -190,6 +207,10 @@ rownames(Sentimentscores_Model3)<-NULL
 names(Sentimentscores_CyberTruck)<-"Score"
 Sentimentscores_CyberTruck<-cbind("sentiment"=rownames(Sentimentscores_CyberTruck),Sentimentscores_CyberTruck)
 rownames(Sentimentscores_CyberTruck)<-NULL
+
+names(Sentimentscores_Stock)<-"Score"
+Sentimentscores_Stock<-cbind("sentiment"=rownames(Sentimentscores_Stock),Sentimentscores_Stock)
+rownames(Sentimentscores_Stock)<-NULL
 
 
 #plotting the sentiments with scores
@@ -217,4 +238,9 @@ ggplot(data=Sentimentscores_CyberTruck,aes(x=sentiment,y=Score))+geom_bar(aes(fi
   theme(legend.position="none")+xlab("Sentiments")+ylab("scores")+
   ggtitle("Sentiments of people behind the tweets on Tesla Cyber Truck")
 
+ggplot(data=Sentimentscores_Stock,aes(x=sentiment,y=Score))+geom_bar(aes(fill=sentiment),stat = "identity")+
+  theme(legend.position="none")+xlab("Sentiments")+ylab("scores")+
+  ggtitle("Sentiments of people behind the tweets on Tesla stock")
+
 ################################################################################################
+#                                     Combining Data                                           #
